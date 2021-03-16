@@ -80,14 +80,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_EVENT_HANDLER:
             let access = window.confirm('Are you sure');
             if (access) {
-                let tempdata = [...state.data]
-                for (let data in tempdata) {
-                    let dataId = tempdata[data].id
-                    if (dataId === action.id) {
-                        tempdata.splice(data, 1)
-                        break;
-                    }
-                }
+                let tempdata = [...state.data];
+                let index = tempdata.findIndex(data => data.id === action.id);
+                tempdata.splice(index,1);
                 return {
                     ...state,
                     data: tempdata
@@ -100,14 +95,8 @@ const reducer = (state = initialState, action) => {
             }
         case actionTypes.EDIT_EVENT_HANDLER:
             let tempdata = [...state.data]
-            let tempSingleData
-            for (let singledata in tempdata) {
-                let dataId = tempdata[singledata].id
-                if (dataId === action.id) {
-                    tempSingleData = tempdata[singledata]
-                    break;
-                }
-            }
+            let index = tempdata.findIndex(data => data.id === action.id);
+            let tempSingleData = tempdata[index]
             return {
                 ...state,
                 singleData:tempSingleData,
